@@ -109,6 +109,7 @@ class VaspErrorHandler(ErrorHandler):
     def __init__(
         self,
         output_filename="vasp.out",
+        working_directory=os.getcwd(),
         natoms_large_cell=None,
         errors_subset_to_catch=None,
         vtst_fixes=False,
@@ -162,6 +163,7 @@ class VaspErrorHandler(ErrorHandler):
         incar = Incar.from_file("INCAR")
         self.errors = set()
         error_msgs = set()
+        stdout_filepath = "%s/%s" % (self.working_dir, self.output_filename)
         with open(self.output_filename) as file:
             text = file.read()
             for err in self.errors_subset_to_catch:
